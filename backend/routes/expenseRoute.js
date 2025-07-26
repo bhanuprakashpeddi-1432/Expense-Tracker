@@ -7,9 +7,11 @@ const Router = ExpressRouter();
 
 
 Router.post('/', auth, expensePost);
+
 Router.get('/user/:userId', auth, getExpensesByUser);
-Router.get('/:id', expenseGet);
-Router.delete('/:id', expenseDelete);
-Router.put('/:id', expensePut);
+
+Router.get('/:id', auth, expenseGet);
+Router.delete('/:id', auth, expenseDelete);
+Router.put('/:id', auth, expensePut);
 
 export default Router;
