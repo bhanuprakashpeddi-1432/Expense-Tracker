@@ -3,7 +3,10 @@ import User from '../models/user.js';
 
 const budgetPost = (req, res) => {
     const { budget } = req.body;
-    const userId = req.user;
+    const userId = req.user.id || req.user._id;
+    if (!budget || !Array.isArray(budget)) {
+        return res.status(400).json({ message: 'Budget must be an array.' });
+    }
     User.findByIdAndUpdate(userId, { budget }, { new: true })
         .then(updatedUser => {
             if (!updatedUser) {
@@ -12,14 +15,13 @@ const budgetPost = (req, res) => {
             res.status(200).json({ message: 'Budget updated successfully', user: updatedUser });
         })
         .catch(err => {
-            console.error(err);
             res.status(500).json({ message: 'Error updating budget' });
         });
 }
 
 const getBudget = async (req, res) => {
     const month = req.params.month;
-    const userId = req.user;
+    const userId = req.user.id || req.user._id;
     try {
         const user = await User.findById(userId);
         if (!user) {
@@ -31,7 +33,6 @@ const getBudget = async (req, res) => {
         }
         res.status(200).json(budget);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Error fetching budget' });
     }
 }

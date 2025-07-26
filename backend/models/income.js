@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const incomeSchema = new mongoose.Schema({
-    title: {
+    source: {
         type: String,
         required: true,
     },

@@ -2,8 +2,11 @@ import Category from '../models/category.js';
 
 
 export const createCategory = async (req, res) => {
+    const { name, type, description } = req.body;
+    if (!name || !type) {
+        return res.status(400).json({ error: 'Name and type are required.' });
+    }
     try {
-        const { name, type, description } = req.body;
         const category = new Category({ name, type, description });
         await category.save();
         res.status(201).json(category);
@@ -34,8 +37,11 @@ export const getCategory = async (req, res) => {
 
 
 export const updateCategory = async (req, res) => {
+    const { name, type, description } = req.body;
+    if (!name || !type) {
+        return res.status(400).json({ error: 'Name and type are required.' });
+    }
     try {
-        const { name, type, description } = req.body;
         const category = await Category.findByIdAndUpdate(
             req.params.id,
             { name, type, description },
