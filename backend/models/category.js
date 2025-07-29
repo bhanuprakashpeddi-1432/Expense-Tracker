@@ -5,6 +5,15 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        enum: ['expense', 'income'],
+        required: true,
+    },
+    description: {
+        type: String,
+        default: '',
+    },
 });
 
 const Category = mongoose.model("Category", categorySchema);

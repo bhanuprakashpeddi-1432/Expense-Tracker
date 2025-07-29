@@ -8,9 +8,9 @@ Router.post('/', auth, incomePost);
 Router.get('/user/:userId', auth, getIncomeByUser);
 
 // Get income by ID is not  necesarry I rthink, but keeping it for consistency
-Router.get('/:id', getIncome); 
+Router.get('/:id', auth, getIncome); 
 
 
-Router.delete('/:id', deleteIncome);
-Router.put('/:id', updateIncome);
+Router.delete('/:id', auth, deleteIncome);
+Router.put('/:id', auth, updateIncome);
 export default Router;
